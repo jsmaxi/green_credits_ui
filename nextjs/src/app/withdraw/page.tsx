@@ -7,15 +7,33 @@ import { Button } from "@/components/ui/button";
 import { Gift, Award } from "lucide-react";
 import { CustomConnectButton } from "@/components/connectButton/CustomConnectButton";
 import { useAccount } from "wagmi";
+import { withdrawRewards } from "../../../contract/writeFunctions/withdrawRewards";
 
 const ClaimRewards = () => {
   const [availableRewards, setAvailableRewards] = useState(425.5);
 
   const { address } = useAccount();
 
-  const handleWithdraw = () => {
+  const { write, result, isPending, error } = withdrawRewards();
+
+  const handleWithdraw = async () => {
     console.log("Withdrawing rewards:", availableRewards);
-    setAvailableRewards(0);
+    if (!availableRewards) {
+      alert("No rewards available.");
+      return;
+    }
+    if (!address) {
+      alert("Please connect your wallet first.");
+      return;
+    }
+    try {
+      const hash = await write();
+      console.log(`Transaction hash: ${hash}`);
+      setAvailableRewards(0);
+    } catch (error: any) {
+      console.log(`Failed to write: ${error}`);
+    }
+    console.log(result, isPending, error);
   };
 
   return (
@@ -51,6 +69,24 @@ const ClaimRewards = () => {
           </Button>
         </CardContent>
       </Card>
+
+      {isPending && (
+        <div className="text-center mt-4 mb-4">
+          <p>Pending...</p>
+        </div>
+      )}
+
+      {error && (
+        <div className="text-center mt-4 mb-4">
+          <p>Error: {error}</p>
+        </div>
+      )}
+
+      {result && (
+        <div className="text-center mt-4 mb-4">
+          <p>Success!</p>
+        </div>
+      )}
 
       <div className="text-center mt-4 mb-8 text-blue-700 text-sm">
         <p>Your green miles are turning into real rewards!</p>

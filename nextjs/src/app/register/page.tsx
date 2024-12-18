@@ -33,7 +33,7 @@ const CarRegistration = () => {
       console.log(`Transaction hash: ${hash}`);
       setVinCode("");
     } catch (error: any) {
-      console.log(`Failed to join the game: ${error}`);
+      console.log(`Failed to write: ${error}`);
     }
     console.log(result, isPending, error);
   };

@@ -8,15 +8,34 @@ import { Input } from "@/components/ui/input";
 import { Flame, Target } from "lucide-react";
 import { CustomConnectButton } from "@/components/connectButton/CustomConnectButton";
 import { useAccount } from "wagmi";
+import { burnCredit } from "../../../contract/writeFunctions/burnCredit";
 
 const BurnCredits = () => {
   const [creditAmount, setCreditAmount] = useState("");
 
   const { address } = useAccount();
 
-  const handleSubmit = (e: any) => {
+  const { write, result, isPending, error } = burnCredit(creditAmount ? Number(creditAmount) : 0);
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     console.log("Credits to Burn:", creditAmount);
+    if (!creditAmount) {
+      alert("Please enter positive credit amount.");
+      return;
+    }
+    if (!address) {
+      alert("Please connect your wallet first.");
+      return;
+    }
+    try {
+      const hash = await write();
+      console.log(`Transaction hash: ${hash}`);
+      setCreditAmount("");
+    } catch (error: any) {
+      console.log(`Failed write: ${error}`);
+    }
+    console.log(result, isPending, error);
   };
 
   return (
@@ -60,6 +79,24 @@ const BurnCredits = () => {
           </form>
         </CardContent>
       </Card>
+
+      {isPending && (
+        <div className="text-center mt-4 mb-4">
+          <p>Pending...</p>
+        </div>
+      )}
+
+      {error && (
+        <div className="text-center mt-4 mb-4">
+          <p>Error: {error}</p>
+        </div>
+      )}
+
+      {result && (
+        <div className="text-center mt-4 mb-4">
+          <p>Success!</p>
+        </div>
+      )}
 
       <div className="text-center mt-4 mb-8 text-orange-700 text-sm">
         <p>Burning credits helps offset your carbon footprint</p>
