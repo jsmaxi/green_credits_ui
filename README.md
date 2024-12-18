@@ -2,16 +2,16 @@
 
 UI code repository for https://github.com/enderNakamoto/green_credits
 
-To get started, run the development server:
+Web application https://green-credits.vercel.app/
+
+To get started:
 
 ```bash
+cd nextjs
+
+npm install
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

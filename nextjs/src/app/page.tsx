@@ -1,9 +1,11 @@
 "use client";
 
+import GreenCreditsDashboard from "./dashboard/page";
+
 function App() {
   return (
     <>
-      <h1>HELLO</h1>
+      <GreenCreditsDashboard />
     </>
   );
 }
