@@ -15,7 +15,7 @@ const GreenCreditsDashboard = () => {
   return (
     <div className="container mx-auto p-4 max-w-md bg-green-50">
       <div className="text-center mb-6">
-        <h1 className="text-2xl font-bold text-green-800">Green Miles Dashboard</h1>
+        <h1 className="text-2xl font-bold text-green-800">Green Credits Dashboard</h1>
         <p className="text-green-600">Your Eco-Driving Impact</p>
       </div>
 

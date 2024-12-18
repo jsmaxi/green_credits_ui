@@ -51,7 +51,7 @@ export const AddressInfoDropdown = ({
       <details ref={dropdownRef} className="dropdown dropdown-end leading-3">
         <summary
           tabIndex={0}
-          className="btn btn-secondary btn-sm pl-0 pr-2 shadow-md dropdown-toggle gap-0 !h-auto bg-yellow-500 text-black border-gray-700 hover:border-gray-700"
+          className="btn btn-sm pl-0 pr-2 shadow-md dropdown-toggle gap-0 !h-auto text-black text-inherit"
         >
           <BlockieAvatar address={checkSumAddress} size={30} ensImage={ensAvatar} />
           <span className="ml-2 mr-1">

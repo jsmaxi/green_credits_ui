@@ -8,7 +8,6 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Address } from "viem";
 import { useTargetNetwork } from "../../../hooks/useTargetNetwork";
 import { getBlockExplorerAddressLink } from "../../../utils/networks";
-import { Wallet } from "lucide-react";
 
 /**
  * Custom Wagmi Connect Button (custom design)
@@ -30,12 +29,11 @@ export const CustomConnectButton = () => {
               if (!connected) {
                 return (
                   <button
-                    className="btn btn-primary btn-sm inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 gap-1 bg-yellow-500 text-black hover:bg-yellow-600/90 hover:border-gray-700 h-10 px-4 py-2 rounded-md border-gray-700"
+                    className="btn btn-sm inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background bg-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 gap-1 hover:border-gray-500 h-9 px-4 py-2 rounded-md text-inherit"
                     onClick={openConnectModal}
                     type="button"
                   >
-                    <Wallet className="h-4 w-4 mr-2" />
-                    Connect Wallet
+                    Connect
                   </button>
                 );
               }
@@ -48,7 +46,7 @@ export const CustomConnectButton = () => {
                 <>
                   <div className="flex flex-col items-center mr-1">
                     <div />
-                    <span className="text-xs text-gray-200">{chain.name}</span>
+                    <span className="text-xs text-gray-400">{chain.name}</span>
                   </div>
                   <AddressInfoDropdown
                     address={account.address as Address}

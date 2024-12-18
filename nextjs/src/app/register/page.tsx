@@ -6,9 +6,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CarFront, Leaf } from "lucide-react";
+import { CustomConnectButton } from "@/components/connectButton/CustomConnectButton";
+import { useAccount } from "wagmi";
 
 const CarRegistration = () => {
   const [vinCode, setVinCode] = useState("");
+
+  const { address } = useAccount();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -18,9 +22,9 @@ const CarRegistration = () => {
   return (
     <div className="container mx-auto p-4 max-w-md bg-green-50 min-h-screen">
       <div className="flex justify-end mb-4">
-        <Button variant="outline" className="text-green-700 border-green-300">
-          Connect
-        </Button>
+        <div className={address ? "text-green-700" : "text-green-700 border-2 border-green-300"}>
+          <CustomConnectButton />
+        </div>
       </div>
 
       <div className="text-center mb-8">
@@ -46,6 +50,7 @@ const CarRegistration = () => {
             <Button
               type="submit"
               className="w-full bg-green-600 hover:bg-green-700 flex items-center justify-center text-white"
+              disabled={!vinCode || !address}
             >
               <Leaf className="mr-2" size={20} />
               Submit

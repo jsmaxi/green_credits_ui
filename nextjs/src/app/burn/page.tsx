@@ -6,9 +6,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Flame, Target } from "lucide-react";
+import { CustomConnectButton } from "@/components/connectButton/CustomConnectButton";
+import { useAccount } from "wagmi";
 
 const BurnCredits = () => {
   const [creditAmount, setCreditAmount] = useState("");
+
+  const { address } = useAccount();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -18,9 +22,9 @@ const BurnCredits = () => {
   return (
     <div className="container mx-auto p-4 max-w-md bg-orange-50 min-h-screen">
       <div className="flex justify-end mb-4">
-        <Button variant="outline" className="text-orange-700 border-orange-300">
-          Connect
-        </Button>
+        <div className={address ? "text-orange-700" : "text-orange-700 border-2 border-orange-300"}>
+          <CustomConnectButton />
+        </div>
       </div>
 
       <div className="text-center mb-8">
@@ -48,6 +52,7 @@ const BurnCredits = () => {
             <Button
               type="submit"
               className="w-full bg-orange-600 hover:bg-orange-700 flex items-center justify-center text-white"
+              disabled={!creditAmount || Number(creditAmount) === 0 || !address}
             >
               <Target className="mr-2" size={20} />
               Burn

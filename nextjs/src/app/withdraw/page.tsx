@@ -5,9 +5,13 @@ import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Gift, Award } from "lucide-react";
+import { CustomConnectButton } from "@/components/connectButton/CustomConnectButton";
+import { useAccount } from "wagmi";
 
 const ClaimRewards = () => {
   const [availableRewards, setAvailableRewards] = useState(425.5);
+
+  const { address } = useAccount();
 
   const handleWithdraw = () => {
     console.log("Withdrawing rewards:", availableRewards);
@@ -17,9 +21,9 @@ const ClaimRewards = () => {
   return (
     <div className="container mx-auto p-4 max-w-md bg-blue-50 min-h-screen">
       <div className="flex justify-end mb-4">
-        <Button variant="outline" className="text-blue-700 border-blue-300">
-          Connect
-        </Button>
+        <div className={address ? "text-blue-700" : "text-blue-700 border-2 border-blue-300"}>
+          <CustomConnectButton />
+        </div>
       </div>
 
       <div className="text-center mb-8">
@@ -39,7 +43,7 @@ const ClaimRewards = () => {
 
           <Button
             onClick={handleWithdraw}
-            disabled={availableRewards === 0}
+            disabled={availableRewards === 0 || !address}
             className="w-full bg-blue-600 hover:bg-blue-700 flex items-center justify-center text-white"
           >
             <Award className="mr-2" size={20} />
