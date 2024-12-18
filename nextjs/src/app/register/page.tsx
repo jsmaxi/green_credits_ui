@@ -8,15 +8,34 @@ import { Input } from "@/components/ui/input";
 import { CarFront, Leaf } from "lucide-react";
 import { CustomConnectButton } from "@/components/connectButton/CustomConnectButton";
 import { useAccount } from "wagmi";
+import { registerVehicle } from "../../../contract/writeFunctions/registerVehicle";
 
 const CarRegistration = () => {
   const [vinCode, setVinCode] = useState("");
 
   const { address } = useAccount();
 
-  const handleSubmit = (e: any) => {
+  const { write, result, isPending, error } = registerVehicle(address ?? "", vinCode);
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     console.log("Submitted VIN:", vinCode);
+    if (!vinCode) {
+      alert("Please enter valid VIN code.");
+      return;
+    }
+    if (!address) {
+      alert("Please connect your wallet first.");
+      return;
+    }
+    try {
+      const hash = await write();
+      console.log(`Transaction hash: ${hash}`);
+      setVinCode("");
+    } catch (error: any) {
+      console.log(`Failed to join the game: ${error}`);
+    }
+    console.log(result, isPending, error);
   };
 
   return (
@@ -58,6 +77,24 @@ const CarRegistration = () => {
           </form>
         </CardContent>
       </Card>
+
+      {isPending && (
+        <div className="text-center mt-4 mb-4">
+          <p>Pending...</p>
+        </div>
+      )}
+
+      {error && (
+        <div className="text-center mt-4 mb-4">
+          <p>Error: {error}</p>
+        </div>
+      )}
+
+      {result && (
+        <div className="text-center mt-4 mb-4">
+          <p>Success!</p>
+        </div>
+      )}
 
       <div className="text-center mt-4 mb-8 text-green-700 text-sm">
         <p>By registering, you're helping reduce carbon emissions</p>
