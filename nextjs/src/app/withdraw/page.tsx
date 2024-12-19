@@ -109,15 +109,15 @@ const ClaimRewards = () => {
             <div className="text-2xl font-bold text-blue-700 mb-2">{stats && stats.vin ? stats.vin : "N/A"}</div>
             <div className="text-sm text-blue-500">VIN</div>
             <div className="text-2xl font-bold text-blue-700 mb-2 mt-4">
-              ${stats && stats.balance ? stats.balance.toFixed(2) : Number(0)}
+              ${stats && stats.balance ? Number(stats.balance).toFixed(2) : Number(0)}
             </div>
             <div className="text-sm text-blue-500">Balance</div>
             <div className="text-2xl font-bold text-blue-700 mb-2 mt-4">
-              ${stats && stats.minted ? stats.minted.toFixed(2) : Number(0)}
+              ${stats && stats.minted ? Number(stats.minted).toFixed(2) : Number(0)}
             </div>
             <div className="text-sm text-blue-500">Minted</div>
             <div className="text-2xl font-bold text-blue-700 mb-2 mt-4">
-              ${stats && stats.burned ? stats.burned.toFixed(2) : Number(0)}
+              ${stats && stats.burned ? Number(stats.burned).toFixed(2) : Number(0)}
             </div>
             <div className="text-sm text-blue-500">Burned</div>
           </div>
@@ -128,7 +128,7 @@ const ClaimRewards = () => {
         <CardContent className="pt-6 text-center">
           <div className="mb-4">
             <div className="text-4xl font-bold text-blue-700 mb-2">
-              ${stats && stats.pendingRewards ? stats.pendingRewards.toFixed(2) : Number(0)}
+              ${stats && stats.pendingRewards ? Number(stats.pendingRewards.toFixed(2)) : Number(0)}
             </div>
             <div className="text-sm text-blue-500">Available Rewards</div>
             {loadingStats && <div className="text-sm text-blue-500">Loading Rewards...</div>}
